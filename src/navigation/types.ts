@@ -1,8 +1,8 @@
 export type RootStackParams = {
-  HomeScreen: undefined;
-  RegisterScreen: undefined;
-  LoginScreen: undefined;
-  LessonsScreen: undefined;
+  Home: undefined;
+  Register: undefined;
+  Login: undefined;
+  Lessons: undefined;
 
-  TestScreen: undefined;
+  Test: undefined;
 };
