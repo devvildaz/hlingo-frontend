@@ -1,4 +1,3 @@
-import MainLogo from '@components/MainLogo';
 import {
   Box,
   Button,
@@ -7,8 +6,9 @@ import {
   Input,
   KeyboardAvoidingView,
   ScrollView,
-  Text,
 } from 'native-base';
+
+import MainLogo from '@components/MainLogo';
 
 const LoginScreen = () => {
   return (
@@ -19,8 +19,8 @@ const LoginScreen = () => {
         </Box>
 
         {/* Login Form */}
-        <KeyboardAvoidingView py={10} px={8}>
-          <Column space={4}>
+        <KeyboardAvoidingView py={10} px={8} width="full" maxW="sm" mx="auto">
+          <Column space={3}>
             <FormControl isInvalid={false}>
               <FormControl.Label>Correo electrónico</FormControl.Label>
               <Input type="email" placeholder="Ingrese su correo..." />
@@ -31,9 +31,7 @@ const LoginScreen = () => {
               <Input type="password" placeholder="*************" />
               <FormControl.ErrorMessage>TODO</FormControl.ErrorMessage>
             </FormControl>
-            <Button mt={4} bgColor="indigo.800">
-              Iniciar Sesión
-            </Button>
+            <Button mt={3}>Iniciar Sesión</Button>
           </Column>
         </KeyboardAvoidingView>
       </Column>

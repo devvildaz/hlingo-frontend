@@ -2,7 +2,7 @@ import { extendTheme } from 'native-base';
 
 // Define the config
 const config = {
-  useSystemColorMode: true,
+  useSystemColorMode: false,
   initialColorMode: 'light',
 };
 
@@ -14,6 +14,7 @@ const theme = extendTheme({
       defaultProps: {
         colorScheme: 'indigo',
         size: 'md',
+        shadow: '3',
       },
     },
   },
