@@ -28,7 +28,7 @@ const RegisterScreen = () => {
             </FormControl>
             <FormControl isInvalid={false}>
               <FormControl.Label>Correo electrónico</FormControl.Label>
-              <Input type="email" placeholder="Ingrese su coreo..." />
+              <Input type="email" placeholder="Ingrese su correo..." />
               <FormControl.ErrorMessage>TODO</FormControl.ErrorMessage>
             </FormControl>
             <FormControl isInvalid={false}>
