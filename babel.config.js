@@ -13,10 +13,11 @@ module.exports = function (api) {
             "@navigation": "./src/navigation",
             "@theme": "./src/theme",
             "@context": "./src/context",
+            "@utils": "./src/utils",
             "@src": "./src",
           }
         }
-      ]
+      ],
     ]
   };
 };
