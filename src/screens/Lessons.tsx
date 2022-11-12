@@ -1,10 +1,15 @@
-import { Text, Column } from 'native-base';
+import { AuthContext } from '@context/auth';
+import { Text, Button, Center } from 'native-base';
+import { useContext } from 'react';
 
 const LessonsScreen = () => {
+  const { logout } = useContext(AuthContext);
+
   return (
-    <Column safeArea>
-      <Text>Lessons Screen</Text>
-    </Column>
+    <Center flex={1}>
+      <Text mb={6}>Lessons Screen</Text>
+      <Button onPress={() => logout()}>Cerrar Sesión</Button>
+    </Center>
   );
 };
 

@@ -1,7 +1,11 @@
 import MainLogo from '@components/MainLogo';
+import { RootStackParams } from '@navigation/types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Box, Button, Column } from 'native-base';
 
-const HomeScreen = () => {
+type Props = NativeStackScreenProps<RootStackParams, 'Home'>;
+
+const HomeScreen = ({ navigation }: Props) => {
   return (
     <Column flex={1} safeArea>
       <Box pt={8}>
@@ -9,10 +13,10 @@ const HomeScreen = () => {
       </Box>
       <Box flex={1} />
       <Column px={20} space={4} pb={20}>
-        <Button size="lg" bgColor="indigo.800">
+        <Button onPress={() => navigation.push('Login')} size="lg">
           Iniciar Sesión
         </Button>
-        <Button size="lg" bgColor="indigo.800">
+        <Button onPress={() => navigation.push('Register')} size="lg">
           Registrarse
         </Button>
       </Column>

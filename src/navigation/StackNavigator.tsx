@@ -1,14 +1,13 @@
+import { useContext } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from '@screens/Home';
-import TestScreen from '@screens/Test';
 import LoginScreen from '@screens/Login';
 import RegisterScreen from '@screens/Register';
 import LessonsScreen from '@screens/Lessons';
-import { RootStackParams } from './types';
-import { useContext } from 'react';
-import { AuthContext } from '@context/auth';
 import LoadingScreen from '@screens/Loading';
+import { AuthContext } from '@context/auth';
+import { RootStackParams } from './types';
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -25,19 +24,17 @@ const StackNavigator = () => {
           backgroundColor: 'white',
         },
       }}
-      initialRouteName="Login"
+      initialRouteName="Home"
     >
       {status === 'authenticated' ? (
         <>
-          <Stack.Screen name="Test" component={TestScreen} />
+          <Stack.Screen name="Lessons" component={LessonsScreen} />
         </>
       ) : (
         <>
           <Stack.Screen name="Home" component={HomeScreen} />
-
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen name="Lessons" component={LessonsScreen} />
         </>
       )}
     </Stack.Navigator>

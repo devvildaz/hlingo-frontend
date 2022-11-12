@@ -20,7 +20,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const getUserInfo = async () => {
       const user = await AsyncStorage.getItem('@user-info');
-      if (!user) return;
+      if (!user) {
+        dispatch({ type: 'logout' });
+        return;
+      }
 
       dispatch({ type: 'login', payload: { user: JSON.parse(user) } });
     };
@@ -42,7 +45,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       toast.show({
         title: 'Algo salió mal',
         placement: 'bottom',
-        tintColor: 'red.500',
+        bgColor: 'red.500',
+        color: 'white',
       });
     }
   };
@@ -51,7 +55,30 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     name: string;
     email: string;
     password: string;
-  }) => {};
+  }) => {
+    try {
+      const res = await holoApi.post<IUser>('/register/email', {
+        email: data.email,
+        password: data.password,
+      });
+
+      await AsyncStorage.setItem('@user-info', JSON.stringify(res.data));
+
+      dispatch({ type: 'login', payload: { user: res.data } });
+    } catch (error) {
+      toast.show({
+        title: 'Algo salió mal',
+        placement: 'bottom',
+        bgColor: 'red.500',
+        color: 'white',
+      });
+    }
+  };
+
+  const logout = async () => {
+    await AsyncStorage.removeItem('@user-info');
+    dispatch({ type: 'logout' });
+  };
 
   return (
     <AuthContext.Provider
@@ -59,6 +86,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         ...state,
         login,
         register,
+        logout,
       }}
     >
       {children}

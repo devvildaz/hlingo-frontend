@@ -7,6 +7,7 @@ type ContextProps = {
 
   login: (data: { email: string; password: string }) => void;
   register: (data: { name: string; email: string; password: string }) => void;
+  logout: () => void;
 };
 
 const AuthContext = createContext({} as ContextProps);

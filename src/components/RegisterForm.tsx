@@ -6,9 +6,10 @@ import {
   KeyboardAvoidingView,
   WarningOutlineIcon,
 } from 'native-base';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { registerResolver } from '@utils';
-import { Controller } from 'react-hook-form';
+import { useContext } from 'react';
+import { AuthContext } from '@context/auth';
 
 type FormData = {
   name: string;
@@ -17,11 +18,7 @@ type FormData = {
 };
 
 const RegisterForm = () => {
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<FormData>({
+  const { handleSubmit, control, formState: { errors } } = useForm<FormData>({
     defaultValues: {
       name: '',
       email: '',
@@ -29,10 +26,12 @@ const RegisterForm = () => {
     },
     resolver: registerResolver,
     mode: 'onSubmit',
-  });
+  }); // prettier-ignore
 
-  const register = (data: FormData) => {
-    console.log({ data });
+  const { register } = useContext(AuthContext);
+
+  const onSubmit = (data: FormData) => {
+    register(data);
   };
 
   return (
@@ -100,7 +99,7 @@ const RegisterForm = () => {
           </FormControl.ErrorMessage>
         </FormControl>
 
-        <Button onPress={handleSubmit(register)} mt={2}>
+        <Button onPress={handleSubmit(onSubmit)} mt={2}>
           Registrarse
         </Button>
       </Column>
