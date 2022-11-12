@@ -9,6 +9,8 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 
 import { loginResolver } from '@utils';
+import { useContext } from 'react';
+import { AuthContext } from '@context/auth';
 
 type FormData = {
   email: string;
@@ -16,21 +18,18 @@ type FormData = {
 };
 
 const LoginForm = () => {
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<FormData>({
+  const { handleSubmit, control, formState: { errors }} = useForm<FormData>({
     defaultValues: {
       email: '',
       password: '',
     },
     resolver: loginResolver,
     mode: 'onSubmit',
-  });
+  }); // prettier-ignore
+  const { login } = useContext(AuthContext);
 
-  const login = (data: FormData) => {
-    console.log({ data });
+  const onSubmit = (data: FormData) => {
+    login(data);
   };
 
   return (
@@ -78,7 +77,7 @@ const LoginForm = () => {
           </FormControl.ErrorMessage>
         </FormControl>
 
-        <Button onPress={handleSubmit(login)} mt={2}>
+        <Button onPress={handleSubmit(onSubmit)} mt={2}>
           Iniciar Sesión
         </Button>
       </Column>
