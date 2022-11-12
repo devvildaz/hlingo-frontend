@@ -1,18 +1,21 @@
 # hlingo-frontend
 Proyecto la cual contiene la aplicacion movil de deteccion de senas hecha en Flutter y la aplicacion web de control de datos hecha en Next.js.
 
-# Instalacion y ejecucion del proyecto
+## Instalacion y ejecucion del proyecto
 
 Nota: Asegurese de tener algun equipo Android o emulador en modo de debugeo
 
-### Instalacion y actualizacion de paquetes 
+### Instalacion de paquetes
 ```
-$ flutter packages get 
-$ flutter packages upgrade
+npm i
 ```
-### Ejecucion del proyecto
+### Ejecucion en Android
 ```
-$ flutter run
+npm run android
+```
+### Ejecución de los tests y cobertura
+```
+npm run test -- --coverage
 ```
 
 
