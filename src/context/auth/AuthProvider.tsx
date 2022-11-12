@@ -33,10 +33,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const login = async (data: { email: string; password: string }) => {
     try {
-      const res = await holoApi.post<IUser>('/login/email', {
-        email: data.email,
-        password: data.password,
-      });
+      const res = await holoApi.post<IUser>('/login/email', data);
 
       await AsyncStorage.setItem('@user-info', JSON.stringify(res.data));
 
@@ -57,10 +54,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     password: string;
   }) => {
     try {
-      const res = await holoApi.post<IUser>('/register/email', {
-        email: data.email,
-        password: data.password,
-      });
+      const res = await holoApi.post<IUser>('/register/email', data);
 
       await AsyncStorage.setItem('@user-info', JSON.stringify(res.data));
 
