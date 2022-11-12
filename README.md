@@ -1,5 +1,5 @@
 # hlingo-frontend
-Proyecto la cual contiene la aplicacion movil de deteccion de senas hecha en Flutter y la aplicacion web de control de datos hecha en Next.js.
+Proyecto la cual contiene la aplicacion movil de deteccion de senas hecha en React Native y la aplicacion web de control de datos hecha en Next.js.
 
 ## Instalacion y ejecucion del proyecto
 
