@@ -5,7 +5,7 @@ const HomeScreen = () => {
   return (
     <Column flex={1} safeArea>
       <Box pt={8}>
-        <MainLogo />
+        <MainLogo size="lg" />
       </Box>
       <Box flex={1} />
       <Column px={20} space={4} pb={20}>

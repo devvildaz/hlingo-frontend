@@ -11,9 +11,6 @@ const theme = extendTheme({
   ...config,
   components: {
     Button: {
-      baseStyle: {
-        fontWeight: 'bold',
-      },
       defaultProps: {
         colorScheme: 'indigo',
         size: 'md',

@@ -1,15 +1,34 @@
 import { Center, Image, Text } from 'native-base';
 
-const MainLogo = () => {
+const sizes = {
+  sm: {
+    logo: '36',
+    text: '3xl',
+  },
+  md: {
+    logo: '48',
+    text: '4xl',
+  },
+  lg: {
+    logo: '64',
+    text: '5xl',
+  },
+};
+
+type Props = {
+  size?: 'sm' | 'md' | 'lg';
+};
+
+const MainLogo = ({ size = 'md' }: Props) => {
   return (
     <Center p={4}>
       <Image
         source={require('@assets/icon.png')}
         alt="Hololingo logo"
-        size="72"
+        size={sizes[size].logo}
         mb={2}
       />
-      <Text bold fontSize="5xl">
+      <Text bold fontSize={sizes[size].text}>
         Hololingo
       </Text>
     </Center>

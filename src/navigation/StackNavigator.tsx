@@ -17,7 +17,7 @@ const StackNavigator = () => {
           backgroundColor: 'white',
         },
       }}
-      initialRouteName="Home"
+      initialRouteName="Login"
     >
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Test" component={TestScreen} />
