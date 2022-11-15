@@ -68,7 +68,8 @@ const RegisterForm = () => {
                 onBlur={onBlur}
                 onChangeText={value => onChange(value)}
                 value={value}
-                type="email"
+                type="text"
+                keyboardType="email-address"
                 placeholder="Ingrese su correo..."
               />
             )}
