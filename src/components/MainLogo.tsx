@@ -27,6 +27,7 @@ const MainLogo = ({ size = 'md' }: Props) => {
         alt="Hololingo logo"
         size={sizes[size].logo}
         mb={2}
+        accessibilityRole="image"
       />
       <Text bold fontSize={sizes[size].text}>
         Hololingo

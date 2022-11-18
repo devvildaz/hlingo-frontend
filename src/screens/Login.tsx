@@ -1,9 +1,13 @@
 import { Box, Column, ScrollView } from 'native-base';
 
+import { useContext } from 'react';
+import { AuthContext } from '@context/auth';
 import MainLogo from '@components/MainLogo';
 import LoginForm from '@components/LoginForm';
 
 const LoginScreen = () => {
+  const { login } = useContext(AuthContext);
+
   return (
     <ScrollView flex={1}>
       <Column flex={1} safeArea>
@@ -11,7 +15,7 @@ const LoginScreen = () => {
           <MainLogo />
         </Box>
 
-        <LoginForm />
+        <LoginForm login={login} />
       </Column>
     </ScrollView>
   );

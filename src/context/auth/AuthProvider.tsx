@@ -31,21 +31,22 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     getUserInfo();
   }, []);
 
-  const login = async (data: { email: string; password: string }) => {
-    try {
-      const res = await holoApi.post<IUser>('/login/email', data);
+  const login = (data: { email: string; password: string }) => {
+    return new Promise<string>(async (resolve, reject) => {
+      try {
+        const res = await holoApi.post<IUser>('/login/email', data, {
+          timeout: 3000,
+        });
 
-      await AsyncStorage.setItem('@user-info', JSON.stringify(res.data));
+        await AsyncStorage.setItem('@user-info', JSON.stringify(res.data));
 
-      dispatch({ type: 'login', payload: { user: res.data } });
-    } catch (error) {
-      toast.show({
-        title: 'Algo salió mal',
-        placement: 'bottom',
-        bgColor: 'red.500',
-        color: 'white',
-      });
-    }
+        dispatch({ type: 'login', payload: { user: res.data } });
+
+        resolve('Sesión iniciada');
+      } catch (error) {
+        reject(new Error('Algo salió mal'));
+      }
+    });
   };
 
   const register = async (data: {

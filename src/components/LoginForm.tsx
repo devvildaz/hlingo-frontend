@@ -4,20 +4,24 @@ import {
   FormControl,
   Input,
   KeyboardAvoidingView,
+  useToast,
   WarningOutlineIcon,
 } from 'native-base';
 import { useForm, Controller } from 'react-hook-form';
 
 import { loginResolver } from '@utils';
-import { useContext } from 'react';
-import { AuthContext } from '@context/auth';
+import { useState } from 'react';
 
 type FormData = {
   email: string;
   password: string;
 };
 
-const LoginForm = () => {
+type Props = {
+  login: (data: FormData) => Promise<string>;
+};
+
+const LoginForm = ({ login }: Props) => {
   const { handleSubmit, control, formState: { errors }} = useForm<FormData>({
     defaultValues: {
       email: '',
@@ -26,10 +30,24 @@ const LoginForm = () => {
     resolver: loginResolver,
     mode: 'onSubmit',
   }); // prettier-ignore
-  const { login } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = (data: FormData) => {
-    login(data);
+  const toast = useToast();
+
+  const onSubmit = async (data: FormData) => {
+    setIsLoading(true);
+    try {
+      await login(data);
+    } catch (error: any) {
+      toast.show({
+        title: 'Algo salió mal',
+        placement: 'bottom',
+        bgColor: 'red.500',
+        color: 'white',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -49,12 +67,18 @@ const LoginForm = () => {
                 type="text"
                 keyboardType="email-address"
                 placeholder="Ingrese su correo..."
+                accessibilityLabel="Correo electrónico"
               />
             )}
           />
-          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon />}>
-            {errors.email?.message}
-          </FormControl.ErrorMessage>
+          {errors.email && (
+            <FormControl.ErrorMessage
+              leftIcon={<WarningOutlineIcon />}
+              accessibilityRole="alert"
+            >
+              {errors.email.message}
+            </FormControl.ErrorMessage>
+          )}
         </FormControl>
 
         {/* Password */}
@@ -69,16 +93,27 @@ const LoginForm = () => {
                 onChangeText={value => onChange(value)}
                 value={value}
                 type="password"
-                placeholder="*************"
+                placeholder="Ingrese su contraseña..."
+                accessibilityLabel="Contraseña"
               />
             )}
           />
-          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon />}>
-            {errors.password?.message}
-          </FormControl.ErrorMessage>
+          {errors.password && (
+            <FormControl.ErrorMessage
+              leftIcon={<WarningOutlineIcon />}
+              accessibilityRole="alert"
+            >
+              {errors.password.message}
+            </FormControl.ErrorMessage>
+          )}
         </FormControl>
 
-        <Button onPress={handleSubmit(onSubmit)} mt={2}>
+        <Button
+          onPress={handleSubmit(onSubmit)}
+          mt={2}
+          isLoading={isLoading}
+          accessibilityRole="button"
+        >
           Iniciar Sesión
         </Button>
       </Column>
