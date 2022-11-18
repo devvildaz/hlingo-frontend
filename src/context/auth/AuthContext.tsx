@@ -5,7 +5,7 @@ type ContextProps = {
   status: 'checking' | 'authenticated' | 'not-authenticated';
   user: IUser | null;
 
-  login: (data: { email: string; password: string }) => void;
+  login: (data: { email: string; password: string }) => Promise<string>;
   register: (data: { name: string; email: string; password: string }) => void;
   logout: () => void;
 };
