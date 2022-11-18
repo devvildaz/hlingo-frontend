@@ -6,7 +6,11 @@ type ContextProps = {
   user: IUser | null;
 
   login: (data: { email: string; password: string }) => Promise<string>;
-  register: (data: { name: string; email: string; password: string }) => void;
+  register: (data: {
+    name: string;
+    email: string;
+    password: string;
+  }) => Promise<string>;
   logout: () => void;
 };
 
