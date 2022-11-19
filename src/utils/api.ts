@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 export const holoApi = axios.create({
-  baseURL: 'http://34.123.245.66:8000/v1',
+  baseURL: 'https://793c-190-235-150-58.sa.ngrok.io/v1',
 });
 
 holoApi.interceptors.request.use(async config => {

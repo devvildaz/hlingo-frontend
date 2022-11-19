@@ -41,12 +41,18 @@ const RegisterForm = ({ register, redirectTo }: Props) => {
     setIsLoading(true);
     try {
       await register(data);
+      toast.show({
+        title: 'Registrado correctamente',
+        placement: 'bottom',
+        bgColor: 'success.400',
+        duration: 2000,
+      });
       redirectTo();
     } catch (error: any) {
       toast.show({
         title: 'Algo salió mal',
         placement: 'bottom',
-        bgColor: 'red.500',
+        bgColor: 'error.600',
         color: 'white',
       });
     } finally {

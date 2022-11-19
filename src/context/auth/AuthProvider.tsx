@@ -19,14 +19,19 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const getUserInfo = async () => {
       const token = await AsyncStorage.getItem(USER_TOKEN_KEY);
+
       if (!token) {
         dispatch({ type: 'logout' });
         return;
       }
 
-      // TODO: make api call to get the user sending the token
-
-      // dispatch({ type: 'login', payload: { user: JSON.parse(user) } });
+      try {
+        const res = await holoApi.get<IUser>('/user/current');
+        dispatch({ type: 'login', payload: { user: res.data } });
+      } catch (error) {
+        dispatch({ type: 'logout' });
+        await AsyncStorage.removeItem(USER_TOKEN_KEY);
+      }
     };
 
     getUserInfo();
@@ -39,10 +44,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           timeout: 3000,
         });
 
-        await AsyncStorage.setItem(
-          USER_TOKEN_KEY,
-          JSON.stringify(res.data.token)
-        );
+        await AsyncStorage.setItem(USER_TOKEN_KEY, res.data.token);
 
         dispatch({ type: 'login', payload: { user: res.data.user } });
 
