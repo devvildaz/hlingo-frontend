@@ -20,9 +20,10 @@ type FormData = {
 
 type Props = {
   register: (data: FormData) => Promise<string>;
+  redirectTo: () => void;
 };
 
-const RegisterForm = ({ register }: Props) => {
+const RegisterForm = ({ register, redirectTo }: Props) => {
   const { handleSubmit, control, formState: { errors } } = useForm<FormData>({
     defaultValues: {
       name: '',
@@ -40,6 +41,7 @@ const RegisterForm = ({ register }: Props) => {
     setIsLoading(true);
     try {
       await register(data);
+      redirectTo();
     } catch (error: any) {
       toast.show({
         title: 'Algo salió mal',

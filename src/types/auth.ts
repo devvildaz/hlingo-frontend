@@ -4,3 +4,8 @@ export type IUser = {
   email: string;
   score: number;
 };
+
+export type ILoginResponse = {
+  user: IUser;
+  token: string;
+};

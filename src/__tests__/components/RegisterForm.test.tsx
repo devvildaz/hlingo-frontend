@@ -16,6 +16,8 @@ const mockRegister = jest.fn(
   }
 );
 
+const mockRedirectTo = jest.fn(() => {});
+
 describe('<RegisterForm />', () => {
   const changeInputValues = (name: string, email: string, password: string) => {
     const nameInput = screen.getByLabelText('Nombres');
@@ -28,7 +30,9 @@ describe('<RegisterForm />', () => {
   };
 
   beforeEach(() => {
-    render(<RegisterForm register={mockRegister} />);
+    render(
+      <RegisterForm register={mockRegister} redirectTo={mockRedirectTo} />
+    );
   });
 
   it('should display errors when value is invalid', async () => {
