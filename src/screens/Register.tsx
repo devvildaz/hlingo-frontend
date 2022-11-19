@@ -1,9 +1,17 @@
+import { useContext } from 'react';
 import { Box, Column, ScrollView } from 'native-base';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { AuthContext } from '@context/auth';
 import MainLogo from '@components/MainLogo';
 import RegisterForm from '@components/RegisterForm';
+import { RootStackParams } from '@navigation/types';
 
-const RegisterScreen = () => {
+type Props = NativeStackScreenProps<RootStackParams, 'Register'>;
+
+const RegisterScreen = ({ navigation }: Props) => {
+  const { register } = useContext(AuthContext);
+
   return (
     <ScrollView flex={1}>
       <Column flex={1} safeArea>
@@ -11,7 +19,10 @@ const RegisterScreen = () => {
           <MainLogo />
         </Box>
 
-        <RegisterForm />
+        <RegisterForm
+          register={register}
+          redirectTo={() => navigation.replace('Login')}
+        />
       </Column>
     </ScrollView>
   );

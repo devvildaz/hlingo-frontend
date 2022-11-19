@@ -1,6 +1,6 @@
+import { useContext } from 'react';
 import { Box, Column, ScrollView } from 'native-base';
 
-import { useContext } from 'react';
 import { AuthContext } from '@context/auth';
 import MainLogo from '@components/MainLogo';
 import LoginForm from '@components/LoginForm';

@@ -1,12 +1,12 @@
-import { useReducer } from 'react';
-import { useToast } from 'native-base';
-import { IUser } from '@src/types';
-import { holoApi } from '@utils';
+import { useReducer, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { IUser, ILoginResponse } from '@src/types';
+import { holoApi } from '@utils';
 import AuthContext from './AuthContext';
 import authReducer, { AuthState } from './authReducer';
-import { useEffect } from 'react';
+
+const USER_TOKEN_KEY = '@user-token';
 
 const authInitialState: AuthState = {
   status: 'checking',
@@ -15,17 +15,23 @@ const authInitialState: AuthState = {
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(authReducer, authInitialState);
-  const toast = useToast();
 
   useEffect(() => {
     const getUserInfo = async () => {
-      const user = await AsyncStorage.getItem('@user-info');
-      if (!user) {
+      const token = await AsyncStorage.getItem(USER_TOKEN_KEY);
+
+      if (!token) {
         dispatch({ type: 'logout' });
         return;
       }
 
-      dispatch({ type: 'login', payload: { user: JSON.parse(user) } });
+      try {
+        const res = await holoApi.get<IUser>('/user/current');
+        dispatch({ type: 'login', payload: { user: res.data } });
+      } catch (error) {
+        dispatch({ type: 'logout' });
+        await AsyncStorage.removeItem(USER_TOKEN_KEY);
+      }
     };
 
     getUserInfo();
@@ -34,13 +40,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = (data: { email: string; password: string }) => {
     return new Promise<string>(async (resolve, reject) => {
       try {
-        const res = await holoApi.post<IUser>('/login/email', data, {
+        const res = await holoApi.post<ILoginResponse>('/login/email', data, {
           timeout: 3000,
         });
 
-        await AsyncStorage.setItem('@user-info', JSON.stringify(res.data));
+        await AsyncStorage.setItem(USER_TOKEN_KEY, res.data.token);
 
-        dispatch({ type: 'login', payload: { user: res.data } });
+        dispatch({ type: 'login', payload: { user: res.data.user } });
 
         resolve('Sesión iniciada');
       } catch (error) {
@@ -49,29 +55,26 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     });
   };
 
-  const register = async (data: {
+  const register = (data: {
     name: string;
     email: string;
     password: string;
   }) => {
-    try {
-      const res = await holoApi.post<IUser>('/register/email', data);
+    return new Promise<string>(async (resolve, reject) => {
+      try {
+        await holoApi.post<IUser>('/register/email', data, {
+          timeout: 3000,
+        });
 
-      await AsyncStorage.setItem('@user-info', JSON.stringify(res.data));
-
-      dispatch({ type: 'login', payload: { user: res.data } });
-    } catch (error) {
-      toast.show({
-        title: 'Algo salió mal',
-        placement: 'bottom',
-        bgColor: 'red.500',
-        color: 'white',
-      });
-    }
+        resolve('Registro exitoso');
+      } catch (error) {
+        reject(new Error('Algo salió mal'));
+      }
+    });
   };
 
   const logout = async () => {
-    await AsyncStorage.removeItem('@user-info');
+    await AsyncStorage.removeItem(USER_TOKEN_KEY);
     dispatch({ type: 'logout' });
   };
 

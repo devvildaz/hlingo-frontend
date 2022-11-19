@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Button,
   Column,
@@ -10,7 +11,6 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 
 import { loginResolver } from '@utils';
-import { useState } from 'react';
 
 type FormData = {
   email: string;
