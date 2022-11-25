@@ -1,5 +1,5 @@
-import { screen, render, fireEvent, waitFor } from '@config/test-utils';
 import LoginForm from '@components/LoginForm';
+import { screen, render, fireEvent, waitFor } from '@config/test-utils';
 
 const testValues = {
   EMAIL: 'miguel@gmail.com',
@@ -8,8 +8,8 @@ const testValues = {
   INVALID_PASSWORD: 'test',
 };
 
-const mockLogin = jest.fn((data: { email: string; password: string }) => {
-  return Promise.resolve('Success');
+const mockLogin = jest.fn(async (data: { email: string; password: string }) => {
+  return await Promise.resolve('Success');
 });
 
 describe('<LoginForm />', () => {

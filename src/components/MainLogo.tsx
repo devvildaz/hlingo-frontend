@@ -15,9 +15,9 @@ const sizes = {
   },
 };
 
-type Props = {
+interface Props {
   size?: 'sm' | 'md' | 'lg';
-};
+}
 
 const MainLogo = ({ size = 'md' }: Props) => {
   return (

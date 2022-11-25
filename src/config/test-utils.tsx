@@ -1,10 +1,9 @@
-import { FC, ReactElement } from 'react';
-import { render, RenderOptions } from '@testing-library/react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { NativeBaseProvider } from 'native-base';
-
 import { AuthProvider } from '@context/auth';
+import { NavigationContainer } from '@react-navigation/native';
 import theme from '@src/theme';
+import { render, RenderOptions } from '@testing-library/react-native';
+import { NativeBaseProvider } from 'native-base';
+import { FC, ReactElement } from 'react';
 
 const inset = {
   frame: { x: 0, y: 0, width: 0, height: 0 },

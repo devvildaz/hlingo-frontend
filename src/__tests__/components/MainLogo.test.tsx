@@ -1,5 +1,5 @@
-import { screen, render } from '@config/test-utils';
 import MainLogo from '@components/MainLogo';
+import { screen, render } from '@config/test-utils';
 
 describe('<MainLogo />', () => {
   it('should render the logo', () => {

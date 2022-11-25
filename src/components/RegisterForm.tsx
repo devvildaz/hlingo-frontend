@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { registerResolver } from '@utils';
 import {
   Button,
   Column,
@@ -8,20 +8,19 @@ import {
   useToast,
   WarningOutlineIcon,
 } from 'native-base';
+import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
-import { registerResolver } from '@utils';
-
-type FormData = {
+interface FormData {
   name: string;
   email: string;
   password: string;
-};
+}
 
-type Props = {
+interface Props {
   register: (data: FormData) => Promise<string>;
   redirectTo: () => void;
-};
+}
 
 const RegisterForm = ({ register, redirectTo }: Props) => {
   const { handleSubmit, control, formState: { errors } } = useForm<FormData>({
@@ -48,7 +47,8 @@ const RegisterForm = ({ register, redirectTo }: Props) => {
         duration: 2000,
       });
       redirectTo();
-    } catch (error: any) {
+    } catch (error) {
+      console.log(error);
       toast.show({
         title: 'Algo salió mal',
         placement: 'bottom',
@@ -80,7 +80,7 @@ const RegisterForm = ({ register, redirectTo }: Props) => {
             )}
           />
 
-          {errors.name && (
+          {errors.name != null && (
             <FormControl.ErrorMessage
               leftIcon={<WarningOutlineIcon />}
               accessibilityRole="alert"
@@ -108,7 +108,7 @@ const RegisterForm = ({ register, redirectTo }: Props) => {
               />
             )}
           />
-          {errors.email && (
+          {errors.email != null && (
             <FormControl.ErrorMessage
               leftIcon={<WarningOutlineIcon />}
               accessibilityRole="alert"
@@ -135,7 +135,7 @@ const RegisterForm = ({ register, redirectTo }: Props) => {
               />
             )}
           />
-          {errors.password && (
+          {errors.password != null && (
             <FormControl.ErrorMessage
               leftIcon={<WarningOutlineIcon />}
               accessibilityRole="alert"
@@ -146,6 +146,7 @@ const RegisterForm = ({ register, redirectTo }: Props) => {
         </FormControl>
 
         <Button
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onPress={handleSubmit(onSubmit)}
           mt={2}
           isLoading={isLoading}

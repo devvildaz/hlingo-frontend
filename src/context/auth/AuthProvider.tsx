@@ -1,8 +1,8 @@
-import { useReducer, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { IUser, ILoginResponse } from '@src/types';
 import { holoApi } from '@utils';
+import { useReducer, useEffect } from 'react';
+
 import AuthContext from './AuthContext';
 import authReducer, { AuthState } from './authReducer';
 
@@ -20,7 +20,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const getUserInfo = async () => {
       const token = await AsyncStorage.getItem(USER_TOKEN_KEY);
 
-      if (!token) {
+      if (token === null) {
         dispatch({ type: 'logout' });
         return;
       }
@@ -29,47 +29,48 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const res = await holoApi.get<IUser>('/user/current');
         dispatch({ type: 'login', payload: { user: res.data } });
       } catch (error) {
+        console.log(error);
         dispatch({ type: 'logout' });
         await AsyncStorage.removeItem(USER_TOKEN_KEY);
       }
     };
 
-    getUserInfo();
+    void getUserInfo();
   }, []);
 
-  const login = (data: { email: string; password: string }) => {
-    return new Promise<string>(async (resolve, reject) => {
-      try {
-        const res = await holoApi.post<ILoginResponse>('/login/email', data, {
+  const login = async (data: { email: string; password: string }) => {
+    return await new Promise<string>((resolve, reject) => {
+      holoApi
+        .post<ILoginResponse>('/login/email', data, {
           timeout: 3000,
+        })
+        .then(async res => {
+          await AsyncStorage.setItem(USER_TOKEN_KEY, res.data.token);
+          dispatch({ type: 'login', payload: { user: res.data.user } });
+          resolve('Sesión iniciada');
+        })
+        .catch(() => {
+          reject(new Error('Algo salió mal'));
         });
-
-        await AsyncStorage.setItem(USER_TOKEN_KEY, res.data.token);
-
-        dispatch({ type: 'login', payload: { user: res.data.user } });
-
-        resolve('Sesión iniciada');
-      } catch (error) {
-        reject(new Error('Algo salió mal'));
-      }
     });
   };
 
-  const register = (data: {
+  const register = async (data: {
     name: string;
     email: string;
     password: string;
   }) => {
-    return new Promise<string>(async (resolve, reject) => {
-      try {
-        await holoApi.post<IUser>('/register/email', data, {
+    return await new Promise<string>((resolve, reject) => {
+      holoApi
+        .post<ILoginResponse>('/register/email', data, {
           timeout: 3000,
+        })
+        .then(async res => {
+          resolve('Registro exitoso');
+        })
+        .catch(() => {
+          reject(new Error('Algo salió mal'));
         });
-
-        resolve('Registro exitoso');
-      } catch (error) {
-        reject(new Error('Algo salió mal'));
-      }
     });
   };
 
