@@ -1,5 +1,6 @@
-import * as yup from 'yup';
+/* eslint-disable no-template-curly-in-string */
 import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 yup.setLocale({
   mixed: {

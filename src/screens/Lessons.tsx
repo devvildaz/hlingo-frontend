@@ -5,6 +5,10 @@ import { useContext } from 'react';
 const LessonsScreen = () => {
   const { logout, user } = useContext(AuthContext);
 
+  const handleLogout = () => {
+    void logout();
+  };
+
   return (
     <Center flex={1}>
       <Text mb={4}>Lessons Screen</Text>
@@ -12,7 +16,7 @@ const LessonsScreen = () => {
       <Text fontSize="lg" mb={6}>
         {user?.name}
       </Text>
-      <Button onPress={() => logout()}>Cerrar Sesión</Button>
+      <Button onPress={handleLogout}>Cerrar Sesión</Button>
     </Center>
   );
 };

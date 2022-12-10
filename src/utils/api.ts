@@ -2,12 +2,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 export const holoApi = axios.create({
-  baseURL: 'https://793c-190-235-150-58.sa.ngrok.io/v1',
+  baseURL: 'https://fdee-190-235-150-58.sa.ngrok.io/v1',
 });
 
 holoApi.interceptors.request.use(async config => {
   const token = await AsyncStorage.getItem('@user-token');
-  if (!token) return config;
+  if (token === null) return config;
 
   return {
     ...config,

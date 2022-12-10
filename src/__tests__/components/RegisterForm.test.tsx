@@ -1,5 +1,5 @@
-import { screen, render, fireEvent, waitFor } from '@config/test-utils';
 import RegisterForm from '@components/RegisterForm';
+import { screen, render, fireEvent, waitFor } from '@config/test-utils';
 
 const testValues = {
   NAME: 'Miguel Rodriguez',
@@ -11,8 +11,8 @@ const testValues = {
 };
 
 const mockRegister = jest.fn(
-  (data: { name: string; email: string; password: string }) => {
-    return Promise.resolve('Success');
+  async (data: { name: string; email: string; password: string }) => {
+    return await Promise.resolve('Success');
   }
 );
 

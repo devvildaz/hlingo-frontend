@@ -1,7 +1,7 @@
 import { IUser } from '@src/types';
 import { createContext } from 'react';
 
-type ContextProps = {
+interface ContextProps {
   status: 'checking' | 'authenticated' | 'not-authenticated';
   user: IUser | null;
 
@@ -11,8 +11,8 @@ type ContextProps = {
     email: string;
     password: string;
   }) => Promise<string>;
-  logout: () => void;
-};
+  logout: () => Promise<void>;
+}
 
 const AuthContext = createContext({} as ContextProps);
 

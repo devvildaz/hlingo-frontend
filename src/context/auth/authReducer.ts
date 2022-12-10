@@ -1,9 +1,9 @@
 import { IUser } from '@src/types';
 
-export type AuthState = {
+export interface AuthState {
   status: 'checking' | 'authenticated' | 'not-authenticated';
   user: IUser | null;
-};
+}
 
 type AuthActionType =
   | { type: 'login'; payload: { user: IUser } }

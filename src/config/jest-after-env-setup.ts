@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-expect-error
 global.window = {};
-// @ts-ignore
+// @ts-expect-error
 global.window = global;

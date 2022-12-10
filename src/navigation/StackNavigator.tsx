@@ -1,15 +1,15 @@
-import { useContext } from 'react';
+import { AuthContext } from '@context/auth';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import HomeScreen from '@screens/Home';
-import LoginScreen from '@screens/Login';
-import RegisterScreen from '@screens/Register';
 import LessonsScreen from '@screens/Lessons';
 import LoadingScreen from '@screens/Loading';
-import { AuthContext } from '@context/auth';
-import { RootStackParams } from './types';
+import LoginScreen from '@screens/Login';
+import RegisterScreen from '@screens/Register';
+import { useContext } from 'react';
 
-const Stack = createNativeStackNavigator<RootStackParams>();
+import { RootStackParamList } from './types';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const StackNavigator = () => {
   const { status } = useContext(AuthContext);

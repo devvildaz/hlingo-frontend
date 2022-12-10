@@ -1,9 +1,8 @@
-import { useContext } from 'react';
-import { Box, Column, ScrollView } from 'native-base';
-
-import { AuthContext } from '@context/auth';
-import MainLogo from '@components/MainLogo';
 import LoginForm from '@components/LoginForm';
+import MainLogo from '@components/MainLogo';
+import { AuthContext } from '@context/auth';
+import { Box, Column, ScrollView } from 'native-base';
+import { useContext } from 'react';
 
 const LoginScreen = () => {
   const { login } = useContext(AuthContext);

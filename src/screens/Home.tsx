@@ -1,9 +1,9 @@
 import MainLogo from '@components/MainLogo';
-import { RootStackParams } from '@navigation/types';
+import { RootStackParamList } from '@navigation/types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Box, Button, Column } from 'native-base';
 
-type Props = NativeStackScreenProps<RootStackParams, 'Home'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen = ({ navigation }: Props) => {
   return (

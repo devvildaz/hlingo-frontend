@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { loginResolver } from '@utils';
 import {
   Button,
   Column,
@@ -8,18 +8,17 @@ import {
   useToast,
   WarningOutlineIcon,
 } from 'native-base';
+import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
-import { loginResolver } from '@utils';
-
-type FormData = {
+interface FormData {
   email: string;
   password: string;
-};
+}
 
-type Props = {
+interface Props {
   login: (data: FormData) => Promise<string>;
-};
+}
 
 const LoginForm = ({ login }: Props) => {
   const { handleSubmit, control, formState: { errors }} = useForm<FormData>({
@@ -38,7 +37,8 @@ const LoginForm = ({ login }: Props) => {
     setIsLoading(true);
     try {
       await login(data);
-    } catch (error: any) {
+    } catch (error) {
+      console.log(error);
       toast.show({
         title: 'Algo salió mal',
         placement: 'bottom',
@@ -71,7 +71,7 @@ const LoginForm = ({ login }: Props) => {
               />
             )}
           />
-          {errors.email && (
+          {errors.email != null && (
             <FormControl.ErrorMessage
               leftIcon={<WarningOutlineIcon />}
               accessibilityRole="alert"
@@ -98,7 +98,7 @@ const LoginForm = ({ login }: Props) => {
               />
             )}
           />
-          {errors.password && (
+          {errors.password != null && (
             <FormControl.ErrorMessage
               leftIcon={<WarningOutlineIcon />}
               accessibilityRole="alert"
@@ -109,6 +109,7 @@ const LoginForm = ({ login }: Props) => {
         </FormControl>
 
         <Button
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onPress={handleSubmit(onSubmit)}
           mt={2}
           isLoading={isLoading}
