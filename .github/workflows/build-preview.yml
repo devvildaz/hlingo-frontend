@@ -1,0 +1,31 @@
+name: Build preview on Expo with EAS
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  build-preview:
+    name: Build preview with EAS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v5
+        with:
+          expo-version: 5.x
+          eas-version: latest
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install Dependencies
+        run: yarn --prefer-offline
+
+      - name: Build on EAS
+        run: eas build --platform android --profile preview --non-interactive
