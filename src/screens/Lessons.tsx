@@ -1,23 +1,64 @@
-import { AuthContext } from '@context/auth';
-import { Text, Button, Center } from 'native-base';
-import { useContext } from 'react';
+import { ICategoryOfLessons, ILessonRes } from '@src/types';
+import { holoApi } from '@utils';
+import { ScrollView, useToast } from 'native-base';
+import { useEffect, useState } from 'react';
+import { List } from 'react-native-paper';
 
 const LessonsScreen = () => {
-  const { logout, user } = useContext(AuthContext);
+  const [lessons, setLessons] = useState<ICategoryOfLessons[]>([]);
+  const toast = useToast();
 
-  const handleLogout = () => {
-    void logout();
-  };
+  useEffect(() => {
+    const getLessons = async () => {
+      try {
+        const res = await holoApi.get<ILessonRes[]>('/lessons');
+
+        // get categories from lessons
+        const categories: string[] = [
+          ...new Set(res.data.map(lesson => lesson.category_name)),
+        ];
+
+        // group lessons by category
+        const lessonsByCategory: ICategoryOfLessons[] = categories.map(
+          category => {
+            return {
+              title: category,
+              lessons: res.data.filter(
+                lesson => lesson.category_name === category
+              ),
+            };
+          }
+        );
+
+        setLessons(lessonsByCategory);
+      } catch (error) {
+        console.log(error);
+        toast.show({
+          title: 'Error',
+          description: 'No se pudo obtener las lecciones',
+        });
+      }
+    };
+
+    void getLessons();
+  }, []);
 
   return (
-    <Center flex={1}>
-      <Text mb={4}>Lessons Screen</Text>
-      <Text fontSize="sm">{user?.id}</Text>
-      <Text fontSize="lg" mb={6}>
-        {user?.name}
-      </Text>
-      <Button onPress={handleLogout}>Cerrar Sesión</Button>
-    </Center>
+    <ScrollView>
+      <List.Section style={{ marginVertical: 0 }}>
+        {lessons.map(category => (
+          <List.Accordion title={category.title} key={category.title}>
+            {category.lessons.map(lesson => (
+              <List.Item
+                title={lesson.title}
+                key={lesson._id.$oid}
+                onPress={() => {}}
+              />
+            ))}
+          </List.Accordion>
+        ))}
+      </List.Section>
+    </ScrollView>
   );
 };
 
