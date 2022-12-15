@@ -18,9 +18,9 @@ jobs:
           cache: 'yarn'
 
       - name: Setup Expo and EAS
-        uses: expo/expo-github-action@v5
+        uses: expo/expo-github-action@v7
         with:
-          expo-version: 5.x
+          expo-version: latest
           eas-version: latest
           expo-token: ${{ secrets.EXPO_TOKEN }}
 
@@ -28,4 +28,4 @@ jobs:
         run: yarn --prefer-offline
 
       - name: Build on EAS
-        run: eas build --platform android --profile preview --non-interactive
+        run: yarn build:preview
