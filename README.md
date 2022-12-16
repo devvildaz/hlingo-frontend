@@ -1,27 +1,24 @@
 # hlingo-frontend
-Proyecto la cual contiene la aplicacion movil de deteccion de senas hecha en React Native y la aplicacion web de control de datos hecha en Next.js.
+Proyecto la cual contiene la aplicacion movil de deteccion de senas hecha en React Native.
 
 ## Instalacion y ejecucion del proyecto
 
 Nota: Asegurese de tener algun equipo Android o emulador en modo de debugeo
 
+### Requisitos
+
+- Yarn
+- Node 16.x
+
 ### Instalacion de paquetes
 ```
-npm i
+yarn 
 ```
 ### Ejecucion en Android
 ```
-npm run android
+yarn android
 ```
 ### Ejecución de los tests y cobertura
 ```
-npm run test -- --coverage
+yarn test --coverage
 ```
-
-
-Integrantes 
-* Aguilar Salazar, Edwin
-* Palomino Guiterrez, Erick
-* Rodriguez Tocas, Miguel
-* Sandoval Salinas, Anthony
-* Vilca Daza, Diego
