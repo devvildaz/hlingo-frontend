@@ -7,7 +7,8 @@ export interface AuthState {
 
 type AuthActionType =
   | { type: 'login'; payload: { user: IUser } }
-  | { type: 'logout' };
+  | { type: 'logout' }
+  | { type: 'update'; payload: { user: IUser } };
 
 const authReducer = (state: AuthState, action: AuthActionType): AuthState => {
   switch (action.type) {
@@ -22,6 +23,11 @@ const authReducer = (state: AuthState, action: AuthActionType): AuthState => {
         ...state,
         status: 'not-authenticated',
         user: null,
+      };
+    case 'update':
+      return {
+        ...state,
+        user: action.payload.user,
       };
 
     default:

@@ -79,6 +79,20 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     dispatch({ type: 'logout' });
   };
 
+  const updateProfile = async (data: IUser) => {
+    return await new Promise<string>((resolve, reject) => {
+      holoApi
+        .post<IUser>('/user/edit', data)
+        .then(async res => {
+          dispatch({ type: 'update', payload: { user: res.data } });
+          resolve('Registro exitoso');
+        })
+        .catch(() => {
+          reject(new Error('Algo salió mal'));
+        });
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -86,6 +100,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         login,
         register,
         logout,
+        updateProfile,
       }}
     >
       {children}
