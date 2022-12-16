@@ -12,6 +12,7 @@ interface ContextProps {
     password: string;
   }) => Promise<string>;
   logout: () => Promise<void>;
+  updateProfile: (data: IUser) => Promise<string>;
 }
 
 const AuthContext = createContext({} as ContextProps);
