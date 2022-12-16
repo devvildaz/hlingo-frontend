@@ -1,13 +1,11 @@
-name: Lint on pushes
-
+name: Production build on Expo with EAS
 on:
   push:
     branches:
       - main
-      - develop
 jobs:
-  lint:
-    name: Lint
+  build:
+    name: Build with EAS
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -19,8 +17,15 @@ jobs:
           node-version: 16
           cache: 'yarn'
 
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          eas-version: 2.7.0
+          token: ${{ secrets.EXPO_TOKEN }}
+
       - name: Install Dependencies
         run: yarn --prefer-offline
 
-      - name: Run lint
-        run: yarn lint
+      - name: Production build on EAS
+        run: yarn build
