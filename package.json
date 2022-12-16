@@ -11,7 +11,7 @@
     "lint": "./node_modules/.bin/eslint src/ --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "./node_modules/.bin/eslint src/ --ext .js,.jsx,.ts,.tsx --fix",
     "build": "eas build --platform android",
-    "build:preview": "eas build --profile preview --platform android"
+    "build:preview": "npx eas-cli build --platform all --non-interactive"
   },
   "jest": {
     "preset": "jest-expo",
