@@ -1,5 +1,5 @@
-import { AuthContext } from '@context/auth';
 import { IUser } from '@src/types/auth';
+import { updateProfileResolver } from '@utils';
 import {
   Button,
   Column,
@@ -10,17 +10,17 @@ import {
   useToast,
   WarningOutlineIcon,
 } from 'native-base';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 interface Props {
   editProfile: (data: IUser) => Promise<string>;
+  user: IUser | null;
 }
 
-const ProfileForm = ({ editProfile }: Props) => {
+const ProfileForm = ({ editProfile, user }: Props) => {
   const [isEditting, setIsEditting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useContext(AuthContext);
   const toast = useToast();
   const {control, formState: {errors}, handleSubmit} = useForm<IUser>({
     defaultValues: {
@@ -28,7 +28,10 @@ const ProfileForm = ({ editProfile }: Props) => {
       name: user?.name,
       email: user?.email,
       score: user?.score,
-    }}); // prettier-ignore
+    },
+    resolver: updateProfileResolver,
+    mode: 'onSubmit'
+  }); // prettier-ignore
 
   const onSubmit = async (data: IUser) => {
     setIsLoading(true);
@@ -132,7 +135,7 @@ const ProfileForm = ({ editProfile }: Props) => {
 
         <Button
           mt={2}
-          accessibilityRole="button"
+          testID="update-profile-button"
           paddingRight={8}
           paddingLeft={8}
           isDisabled={!isEditting}
