@@ -5,12 +5,12 @@ import { Center } from 'native-base';
 import { useContext } from 'react';
 
 const ProfileScreen = () => {
-  const { updateProfile } = useContext(AuthContext);
+  const { updateProfile, user } = useContext(AuthContext);
 
   return (
     <Center flex={1}>
       <AvatarProfile />
-      <ProfileForm editProfile={updateProfile} />
+      <ProfileForm editProfile={updateProfile} user={user} />
     </Center>
   );
 };
