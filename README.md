@@ -1,24 +1,42 @@
 # hlingo-frontend
-Proyecto la cual contiene la aplicacion movil de deteccion de senas hecha en React Native.
+Proyecto el cual contiene la aplicacion movil de deteccion de senas hecha en React Native para Android.
 
-## Instalacion y ejecucion del proyecto
+## Contenido
 
-Nota: Asegurese de tener algun equipo Android o emulador en modo de debugeo
+<ol>
+    <li>
+      <a href="#execution">Instalación y ejecución</a>
+      <ul>
+        <li><a href="#exec-req">Requisitos</a></li>
+        <li><a href="#install-dep">Instalar dependencias</a></li>
+        <li><a href="#exec-exec">Ejecutar</a></li>
+        <li><a href="#exec-tests">Ejecutar tests</a></li>
+      </ul>
+    </li>
+  </ol>
 
-### Requisitos
+<h2 id="execution">Instalación y ejecución</h2>
 
+<h3 id="exec-req">Requisitos</h3>
+
+- Node 16.x o mayor
 - Yarn
-- Node 16.x
+- Un emulador de Android
+- Una cuenta verificada en Expo
 
-### Instalacion de paquetes
+<h3 id="install-dep">Instalar dependencias</h3>
+
 ```
 yarn 
 ```
-### Ejecucion en Android
+<h3 id="exec-exec">Ejecutar</h3>
+
 ```
-yarn android
+yarn android --offline
 ```
-### Ejecución de los tests y cobertura
+
+<h3 id="exec-tests">Ejecutar los tests y cobertura</h3>
+
 ```
 yarn test --coverage
 ```
