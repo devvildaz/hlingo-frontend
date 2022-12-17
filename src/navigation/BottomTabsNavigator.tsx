@@ -2,7 +2,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import LessonsScreen from '@screens/Lessons';
 import ProfileScreen from '@screens/Profile';
-import SearchScreen from '@screens/Search';
 import SocialScreen from '@screens/Social';
 
 import { RootBottomTabsParamList } from './types';
@@ -42,16 +41,6 @@ const BottomTabsNavigator = () => {
         }}
         name="Social"
         component={SocialScreen}
-      />
-      <Tab.Screen
-        options={{
-          tabBarLabel: 'Buscar',
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="search-outline" size={24} color={color} />
-          ),
-        }}
-        name="Search"
-        component={SearchScreen}
       />
       <Tab.Screen
         options={{

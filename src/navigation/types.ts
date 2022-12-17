@@ -10,7 +10,6 @@ export type RootStackParamList = {
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type RootBottomTabsParamList = {
   Lessons: undefined;
-  Search: undefined;
   Social: undefined;
   Profile: undefined;
 

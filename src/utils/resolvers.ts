@@ -34,3 +34,12 @@ export const registerResolver = yupResolver(
     password: yup.string().min(8).max(30).required('Ingrese su clave'),
   })
 );
+
+export const updateProfileResolver = yupResolver(
+  yup.object({
+    id: yup.string().required(),
+    name: yup.string().min(2).max(80).required('Ingrese sus nombres'),
+    email: yup.string().email().max(50).required('Ingrese su correo'),
+    score: yup.number().required(),
+  })
+);
