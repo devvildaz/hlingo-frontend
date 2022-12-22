@@ -1,17 +1,25 @@
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
+import { ILesson } from '@src/types/lessons';
+
 export type RootStackParamList = {
   Home: undefined;
   Register: undefined;
   Login: undefined;
 
   BottomNavigator: undefined;
+  Lesson: ILesson;
+  LessonPreview: { video_url: string };
 };
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type RootBottomTabsParamList = {
-  Lessons: undefined;
   Social: undefined;
   Profile: undefined;
+  Lessons: undefined;
 
-  Test: undefined;
+  LessonStackNavigator: undefined;
+};
+
+export type RootLessonStackParamList = {
+  Lessons: undefined;
+  Lesson: ILesson;
 };

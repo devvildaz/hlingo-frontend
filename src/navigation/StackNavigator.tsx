@@ -2,6 +2,8 @@ import HomeAppBar from '@components/HomeAppBar';
 import { AuthContext } from '@context/auth';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '@screens/Home';
+import LessonScreen from '@screens/Lesson';
+import LessonPreviewScreen from '@screens/LessonPreview';
 import LoadingScreen from '@screens/Loading';
 import LoginScreen from '@screens/Login';
 import RegisterScreen from '@screens/Register';
@@ -40,6 +42,8 @@ const StackNavigator = () => {
             name="BottomNavigator"
             component={BottomTabsNavigator}
           />
+          <Stack.Screen name="Lesson" component={LessonScreen} />
+          <Stack.Screen name="LessonPreview" component={LessonPreviewScreen} />
         </>
       ) : (
         <>
