@@ -9,6 +9,11 @@ export type RootStackParamList = {
   BottomNavigator: undefined;
   Lesson: ILesson;
   LessonPreview: { video_url: string };
+  LessonResults: {
+    title: string;
+    prediction_score: number;
+    temp_video: string;
+  };
 };
 
 export type RootBottomTabsParamList = {

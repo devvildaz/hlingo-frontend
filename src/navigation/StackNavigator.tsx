@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '@screens/Home';
 import LessonScreen from '@screens/Lesson';
 import LessonPreviewScreen from '@screens/LessonPreview';
+import LessonResultsScreen from '@screens/LessonResults';
 import LoadingScreen from '@screens/Loading';
 import LoginScreen from '@screens/Login';
 import RegisterScreen from '@screens/Register';
@@ -44,6 +45,7 @@ const StackNavigator = () => {
           />
           <Stack.Screen name="Lesson" component={LessonScreen} />
           <Stack.Screen name="LessonPreview" component={LessonPreviewScreen} />
+          <Stack.Screen name="LessonResults" component={LessonResultsScreen} />
         </>
       ) : (
         <>
