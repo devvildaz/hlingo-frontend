@@ -7,13 +7,23 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'LessonPreview'>;
 
+const videos: Record<string, any> = {
+  'person-signer1-1': require('@assets/videos/person-signer1-1.mp4'),
+  'good_evening-signer1-1': require('@assets/videos/good_evening-signer1-1.mp4'),
+  'good_morning-signer1-1': require('@assets/videos/good_morning-signer1-1.mp4'),
+  'mom-signer1-1': require('@assets/videos/mom-signer1-1.mp4'),
+  'neighbour-signer1-1': require('@assets/videos/neighbour-signer1-1.mp4'),
+};
+
 const LessonPreviewScreen = ({ navigation, route }: Props) => {
+  const { video_url: videoURL } = route.params;
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Center flex={1}>
         <Text fontSize="2xl">Video de ejemplo</Text>
         <Video
-          source={require(`@assets/videos/neighbour-signer1-1.mp4`)}
+          source={videos[videoURL]}
           style={{
             width: '100%',
             minHeight: 450,

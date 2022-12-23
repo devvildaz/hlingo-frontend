@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 export const holoApi = axios.create({
-  baseURL: 'https://780f-190-235-150-58.sa.ngrok.io/v1',
+  baseURL: 'https://351e-190-235-150-58.sa.ngrok.io/v1',
 });
 
 holoApi.interceptors.request.use(async config => {
@@ -18,8 +18,9 @@ holoApi.interceptors.request.use(async config => {
 });
 
 export const holoPredictionApi = axios.create({
+  baseURL: 'http://54.232.69.40:8000',
   headers: {
     'Content-Type': 'multipart/form-data',
-    'Video-Format': 'webm',
+    'Video-Format': 'mp4',
   },
 });
