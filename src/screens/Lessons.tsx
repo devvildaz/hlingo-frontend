@@ -1,10 +1,14 @@
+import { RootLessonStackParamList } from '@navigation/types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ICategoryOfLessons, ILessonRes } from '@src/types';
 import { holoApi } from '@utils';
 import { ScrollView, useToast } from 'native-base';
 import { useEffect, useState } from 'react';
 import { List } from 'react-native-paper';
 
-const LessonsScreen = () => {
+type Props = NativeStackScreenProps<RootLessonStackParamList, 'Lessons'>;
+
+const LessonsScreen = ({ navigation }: Props) => {
   const [lessons, setLessons] = useState<ICategoryOfLessons[]>([]);
   const toast = useToast();
 
@@ -52,7 +56,7 @@ const LessonsScreen = () => {
               <List.Item
                 title={lesson.title}
                 key={lesson._id.$oid}
-                onPress={() => {}}
+                onPress={() => navigation.navigate('Lesson', lesson)}
               />
             ))}
           </List.Accordion>
