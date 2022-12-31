@@ -32,6 +32,7 @@ const MainLogo = ({ size = 'md' }: Props) => {
       <Text bold fontSize={sizes[size].text}>
         Hololingo
       </Text>
+      <Text fontSize={20}>Test</Text>
     </Center>
   );
 };
